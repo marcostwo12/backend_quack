@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const uploadConfig = require('../configs/upload');
 
-class DiskStorage {
+class DiskStorage { 
     async saveFile(file) {
         await fs.promises.rename(//rename para renomear um arquivo/mover.
             path.resolve(uploadConfig.TMP_FOLDER, file),//Quando a imagem chega no banco ela vai pra pasta temporária 
