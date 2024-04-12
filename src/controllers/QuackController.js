@@ -36,7 +36,15 @@ class QuackController {
 
         // Generate content using the generative model
         const result = await model.generateContent(prompt);
-        const text = result.response.text();
+        let text = result.response.text();
+
+        // Verificar se o texto tem mais de 4000 caracteres
+        if (text.length > 4000) {
+            // Solicitar um resumo
+            const resumoPrompt = `O resumo gerado é muito extenso (${text.length} caracteres). Por favor, forneça um resumo mais curto. """Texto: ${text}"""`;
+            const resumoResult = await model.generateContent(resumoPrompt);
+            text = resumoResult.response.text();
+        }
 
         const blocosTexto = text.split(/(\*\*\*|\`\`\`)/);
 
